@@ -1,8 +1,11 @@
 # 수업 내용: https://multiking.tistory.com/36
 
+install.packages("ggplot2")
+library("ggplot2")
+
 data <- read.csv("train.csv", stringsAsFactors = F)
-# stringsASFactors = F
-# => 문자 형태의 데이터를 그대로 가져오겠다는 의미
+# stringsASFactors = F (== 't'모드?)
+# => 문자 형태의 데이터를 그대로 가1져오겠다는 의미
 
 class(data) # `data`의 종류 확인
 
@@ -20,13 +23,11 @@ anyNA(data) # 결측치 존재 확인
 table(is.na(data)) # 인자값을 바탕으로 테이블 형성
 colSums(is.na(data)) # 인자값을 바탕으로 각 열의 값을 더해 테이블 형성
 
-data1 <- data[!is.na(data$Age)]
+data1 <- data[!is.na(data$Age), ]
 data1
 
 data2 <- na.omit(data)
 data2 <- data2[-11]
 
-
-install.packages("ggplot2")
-library("ggplot2")
-ggplot(data2, aes(Suervived, fill = Sex) + geom_bar(position = "fill") + labs(title = "Titanic Survived By Sex", y = "Population"))
+ggplot(data2, aes(Suervived, fill = Sex)) +
+    geom_bar()
